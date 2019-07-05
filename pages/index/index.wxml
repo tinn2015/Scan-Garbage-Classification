@@ -1,0 +1,23 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+  <view class="usermotto">
+    <text class="user-motto" bindtap='routerHome'>{{motto}}</text>
+  </view>
+  <view class="" hover-class="none" hover-stop-propagation="false" style="width: 400rpx; height: 200rpx;text-align: center;overfolw: hidden">
+    <image id="img" class="" src="../../images/timg.jpg" lazy-load="false" binderror="" bindload="" style="width: 100%;height: 100%">
+    </image>
+  </view>
+  <button bindtap="getImage">获取图片</button>
+  <button bindtap="discern">开始识别</button>
+  <view>
+    <text>识别结果：</text>
+    <text>{{ result }}</text>
+  </view>
+</view>
