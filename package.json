@@ -9,8 +9,5 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "@tensorflow-models/coco-ssd": "^1.1.1",
-    "@tensorflow/tfjs": "^1.2.2"
-  }
+  "dependencies": {}
 }

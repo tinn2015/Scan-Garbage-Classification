@@ -1,5 +1,6 @@
 //index.js
 //获取应用实例
+import 'babel-polyfill'
 const app = getApp()
 // import * as cocoSsd from '@tensorflow-models/coco-ssd'
 import regeneratorRuntime from '../../utils/runtime'
@@ -44,6 +45,9 @@ Page({
       sourceType: ['album', 'camera'],
       success: function (res) {
         let file = res.tempFiles[0]
+        wx.showToast({
+          text: file.path
+        })
         let fileManager = wx.getFileSystemManager()
         let base64Image = fileManager.readFileSync(file.path, 'base64')
         console.log(base64Image)
@@ -52,6 +56,7 @@ Page({
     })
   },
   async discern (base64Image) {
+    let that = this
     let imageUrlEncode = encodeURIComponent(base64Image)
     // let $ = wx.createSelectorQuery()
     // const img = $.select('#img');
@@ -75,7 +80,9 @@ Page({
         'content-type': 'application/x-www-form-urlencoded'
       },
       success (res) {
-        console.log(res)
+        that.setData({
+          result: res.data.result[0].keyword
+        })
       }
     })
   },
