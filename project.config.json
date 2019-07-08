@@ -11,7 +11,7 @@
 		"checkInvalidKey": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "1.9.94",
+	"libVersion": "2.6.6",
 	"appid": "wx10c59276b3807e50",
 	"projectname": "garbageClassify",
 	"simulatorType": "wechat",

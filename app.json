@@ -4,10 +4,12 @@
     "pages/logs/logs",
     "pages/home/index"
   ],
+  "usingComponents": {
+  },
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "tinn",
+    "navigationBarTitleText": "垃圾分类助手",
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json"

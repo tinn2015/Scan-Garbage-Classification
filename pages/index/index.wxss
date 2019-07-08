@@ -19,3 +19,8 @@
 .usermotto {
   margin-top: 100px;
 }
+
+.camera {
+  width: 25px;
+  height: 25px;
+}

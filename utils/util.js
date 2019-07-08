@@ -14,6 +14,31 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+const formatStringsNumber = function (string) {
+  let stringObj = {}
+  let stringArr = []
+  let arr = string.split('')
+  arr.forEach(i => {
+    if (stringObj[i]) {
+      stringObj[i] += 1
+    } else {
+      stringObj[i] = 1
+    }
+  })
+  for (let i in stringObj) {
+    stringArr.push({
+      key: i,
+      num: stringObj[i]
+    })
+  }
+  stringArr.sort(function (a,b) {
+    return b.num - a.num
+  })
+  console.log(stringArr, 'stringArr')
+  return stringArr
+}
+
 module.exports = {
-  formatTime: formatTime
+  formatTime: formatTime,
+  formatStringsNumber: formatStringsNumber
 }

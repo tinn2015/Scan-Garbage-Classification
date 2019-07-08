@@ -1,18 +1,17 @@
-//index.js
 //获取应用实例
-import 'babel-polyfill'
 const app = getApp()
-// import * as cocoSsd from '@tensorflow-models/coco-ssd'
-import regeneratorRuntime from '../../utils/runtime'
+import trashClasses from '../../utils/trashClass'
+import util from '../../utils/util'
 
 Page({
   data: {
-    motto: 'tab me',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    result: '未识别',
-    accessToken: ''
+    discernResult: {
+      list: [],
+      type: ''
+    },
+    accessToken: '',
+    currentImage: '',
+    selectFile: null
   },
   //事件处理函数
   bindViewTap: function() {
@@ -45,31 +44,20 @@ Page({
       sourceType: ['album', 'camera'],
       success: function (res) {
         let file = res.tempFiles[0]
-        wx.showToast({
-          text: file.path
-        })
         let fileManager = wx.getFileSystemManager()
         let base64Image = fileManager.readFileSync(file.path, 'base64')
         console.log(base64Image)
+        that.setData({
+          'discernResult.type': '',
+          currentImage: file.path
+        })
         that.discern(base64Image)
       }
     })
   },
-  async discern (base64Image) {
+discern (base64Image) {
     let that = this
     let imageUrlEncode = encodeURIComponent(base64Image)
-    // let $ = wx.createSelectorQuery()
-    // const img = $.select('#img');
-
-    // // Load the model.
-    // const model = await cocoSsd.load();
-    // console.log('discern', model)
-
-    // // // Classify the image.
-    // const predictions = await model.detect(img);
-
-    // // console.log('Predictions: ');
-    // console.log(predictions);
     let baiduHost = 'https://aip.baidubce.com/rest/2.0/image-classify/v2/advanced_general?access_token=' + this.accessToken
     let data = "image=" + imageUrlEncode
     wx.request({
@@ -80,47 +68,44 @@ Page({
         'content-type': 'application/x-www-form-urlencoded'
       },
       success (res) {
+        console.log(res.data)
+        let result = res.data.result
+        let resultNameString = ''
+        result.forEach(i => {
+          resultNameString += i.keyword
+        })
+        let key = util.formatStringsNumber(resultNameString)[0].key
+        console.log('max string:', key)
+        that.filterResult(key)
         that.setData({
-          result: res.data.result[0].keyword
+          'discernResult.list': result,
         })
       }
     })
+  },
+  filterResult (key) {
+    // let keys = this.discernResult
+    let findFlag = false
+    trashClasses.forEach(i => {
+      if (i.name.indexOf(key) > 0) {
+        findFlag = true
+        this.setData({
+          'discernResult.type': i.type
+        })
+      }
+    })
+    if (!findFlag) {
+      this.setData({
+        'discernResult.type': '未识别'
+      })
+    }
+    // if (!this.discernResult.type) {
+    //   that.setData({
+    //     'discernResult.type': '未识别'
+    //   })
+    // }
   },
   onLoad: function () {
     this.getBaiduAccessToken()
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }
-  },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
   }
 })
