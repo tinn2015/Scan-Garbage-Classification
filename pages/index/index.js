@@ -2,7 +2,7 @@
 const app = getApp()
 import trashClasses from '../../utils/trashClass'
 import util from '../../utils/util'
-import Toast from '../../components/dist/toast/toast'
+import Toast from '../../components/vant/toast/toast'
 
 Page({
   data: {

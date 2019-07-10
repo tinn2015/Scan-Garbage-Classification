@@ -47,7 +47,13 @@
     <image class="" src="../../images/ico-4.jpg" data-url="../../images/44.png" bindtap="showDetail" mode="widthFix" lazy-load="false" binderror="" bindload=""> 
     </image>
   </view>
-  <button open-type="contact">联系我</button>
+  <view class="contact-me" hover-class="none" hover-stop-propagation="false">
+    <button class="contact-btn" open-type="contact">联系我</button>
+    <view class="contact-mask flex jc-c ai-c" hover-class="none" hover-stop-propagation="false">
+      <van-icon name="chat-o" color="#1296db" class="flex ai-c" style="display:block"/>
+      留言
+    </view>
+  </view>
   <van-dialog
     use-slot
     show="{{detailVisible}}"

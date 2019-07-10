@@ -1,6 +1,7 @@
 {
   "usingComponents": {
-    "van-dialog": "../../components/dist/dialog",
-    "van-toast": "../../components/dist/toast"
+    "van-dialog": "../../components/vant/dialog",
+    "van-toast": "../../components/vant/toast",
+    "van-icon": "../../components/vant/icon/index"
   }
 }
