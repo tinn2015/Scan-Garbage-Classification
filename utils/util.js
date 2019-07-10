@@ -38,7 +38,16 @@ const formatStringsNumber = function (string) {
   return stringArr
 }
 
+const throttle = function (fn, context, params, delay) {
+  console.log(fn.timer, 'fn')
+  clearTimeout(fn.timer)
+  fn.timer = setTimeout(() => {
+    fn.call(context, params)
+  }, delay)
+}
+
 module.exports = {
   formatTime: formatTime,
-  formatStringsNumber: formatStringsNumber
+  formatStringsNumber: formatStringsNumber,
+  throttle: throttle
 }

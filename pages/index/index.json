@@ -1,4 +1,6 @@
 {
   "usingComponents": {
+    "van-dialog": "../../components/dist/dialog",
+    "van-toast": "../../components/dist/toast"
   }
 }

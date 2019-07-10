@@ -2,6 +2,7 @@
 const app = getApp()
 import trashClasses from '../../utils/trashClass'
 import util from '../../utils/util'
+import Toast from '../../components/dist/toast/toast'
 
 Page({
   data: {
@@ -11,7 +12,10 @@ Page({
     },
     accessToken: '',
     currentImage: '',
-    selectFile: null
+    detailVisible: false,
+    detailImg: '',
+    searchValue: '',
+    toastVisible: false
   },
   //事件处理函数
   bindViewTap: function() {
@@ -49,9 +53,15 @@ Page({
         console.log(base64Image)
         that.setData({
           'discernResult.type': '',
-          currentImage: file.path
+          currentImage: file.path,
+          toastVisible: true
         })
         that.discern(base64Image)
+        Toast.loading({
+          mask: false,
+          duration: 0,
+          message: '努力识别中...'
+        })
       }
     })
   },
@@ -70,18 +80,31 @@ discern (base64Image) {
       success (res) {
         console.log(res.data)
         let result = res.data.result
-        let resultNameString = ''
+        // let resultNameString = ''
+        // result.forEach(i => {
+        //   resultNameString += i.keyword
+        // })
+        // let key = util.formatStringsNumber(resultNameString)[0].key
+        // console.log('max string:', key)
+        // that.filterResult(key)
         result.forEach(i => {
-          resultNameString += i.keyword
+          i.type = that.getType(i.keyword)
         })
-        let key = util.formatStringsNumber(resultNameString)[0].key
-        console.log('max string:', key)
-        that.filterResult(key)
         that.setData({
           'discernResult.list': result,
+          toastVisible: false
         })
       }
     })
+  },
+  getType (key) {
+    let type = '未识别'
+    trashClasses.forEach(i => {
+      if (i.name.indexOf(key) > -1) {
+        type = i.type
+      }
+    })
+    return type
   },
   filterResult (key) {
     // let keys = this.discernResult
@@ -105,7 +128,54 @@ discern (base64Image) {
     //   })
     // }
   },
+  showDetail (e) {
+    let url = e.currentTarget.dataset.url
+    console.log(url)
+    this.setData({
+      detailVisible: true,
+      detailImg: url
+    })
+  },
+  searchInput (e) {
+    let val = e.detail.value
+    util.throttle(this.setValue, this, val, 500)
+    console.log(e.detail.value)
+  },
+  setValue (data) {
+    console.log(data, 'serValue')
+    this.setData({
+      searchValue: data,
+      'discernResult.type': null,
+      'discernResult.list': [],
+      currentImage: ''
+    })
+  },
+  doSearch () {
+    let value = this.data.searchValue
+    for (let i = 0; i < trashClasses.length; i++) {
+      let item = trashClasses[i]
+      if (item.name.indexOf(value) > 0) {
+        this.setData({
+          'discernResult.type': item.type
+        })
+        return
+      }
+    }
+  },
   onLoad: function () {
     this.getBaiduAccessToken()
+  },
+  onShow: function () {
+    this.setData({
+      discernResult: {
+        list: [],
+        type: ''
+      },
+      currentImage: '',
+      detailVisible: false,
+      detailImg: '',
+      searchValue: '',
+      toastVisible: false
+    })
   }
 })

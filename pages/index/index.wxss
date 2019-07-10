@@ -21,6 +21,74 @@
 }
 
 .camera {
-  width: 25px;
-  height: 25px;
+  width: 50rpx;
+  height: 50rpx;
+}
+
+.search-box {
+  height: 100rpx;
+  line-height: 100rpx;
+  border: 2rpx solid #dddddd;
+  border-radius: 16rpx;
+  width: 100%;
+  position: relative;
+}
+.search-icon {
+  width: 50rpx;
+  height: 50rpx;
+  position: absolute;
+  left: 15rpx;
+}
+.search-box input{
+  width: 100%;
+  padding: 0 160rpx 0 80rpx;
+}
+.search-box .camera {
+  position: absolute;
+  right: 110rpx;
+}
+.search-btn {
+  position: absolute;
+  right: 15rpx
+}
+.image-preview {
+  width: 100%;
+  min-height: 200rpx;
+  max-height: 600rpx;
+  margin-top: 40rpx;
+  overflow: hidden;
+  border-radius: 16px;
+}
+.image-preview image {
+  border-radius: 16px;
+}
+.classify-box {
+  width: 100%
+}
+.classify-box image {
+  width: 200rpx;
+  display: block;
+  margin-top: 40rpx;
+}
+.discern-result {
+  margin-top: 40rpx;
+}
+.result-title {
+  padding: 10rpx 0;
+  width: 400rpx;
+  border-bottom: 1px solid #ddd;
+}
+.discern-result .keyword {
+  /* margin-right: 40rpx; */
+  height: 30px;
+  line-height: 30px;
+}
+.type {
+  margin-top: 40rpx;
+}
+.classify-detail {
+  width: 100%;
+  height: 900rpx;
+  display: block;
+  border-radius: 16px;
 }

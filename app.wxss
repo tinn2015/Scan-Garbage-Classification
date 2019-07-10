@@ -1,12 +1,17 @@
 /**app.wxss**/
+page {
+  height: 100%;
+  overflow-y: auto
+}
 .container {
   height: 100%;
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0;
+  align-items: center; */
+  /* justify-content: space-between; */
+  padding: 100rpx 40rpx;
   box-sizing: border-box;
+  overflow-y: auto
 } 
 .flex {
   display: flex
@@ -14,10 +19,37 @@
 .jc-c {
   justify-content: center;
 }
+.jc-s {
+  justify-content: start
+}
+.jc-sb {
+  justify-content: space-between
+}
+.jc-sa {
+  justify-content: space-around
+}
 .ai-c {
   align-items: center
+}
+.f-w {
+  flex-wrap: wrap
 }
 
 .pointer {
   cursor: pointer;
+}
+.text-center {
+  text-align: center
+}
+.ft20 {
+  font-size: 20px;
+}
+.ft16 {
+  font-size: 16px;
+}
+.c-333 {
+  color: #333
+}
+.c-blue {
+  color: #1296db
 }
