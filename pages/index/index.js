@@ -15,7 +15,8 @@ Page({
     detailVisible: false,
     detailImg: '',
     searchValue: '',
-    toastVisible: false
+    toastVisible: false,
+    inputValue: ''
   },
   //事件处理函数
   bindViewTap: function() {
@@ -110,7 +111,7 @@ discern (base64Image) {
     // let keys = this.discernResult
     let findFlag = false
     trashClasses.forEach(i => {
-      if (i.name.indexOf(key) > 0) {
+      if (i.name.indexOf(key) > -1) {
         findFlag = true
         this.setData({
           'discernResult.type': i.type
@@ -151,16 +152,25 @@ discern (base64Image) {
     })
   },
   doSearch () {
-    let value = this.data.searchValue
-    for (let i = 0; i < trashClasses.length; i++) {
-      let item = trashClasses[i]
-      if (item.name.indexOf(value) > 0) {
-        this.setData({
-          'discernResult.type': item.type
-        })
-        return
+    setTimeout(() => {
+      let value = this.data.searchValue
+      let flag = false
+      for (let i = 0; i < trashClasses.length; i++) {
+        let item = trashClasses[i]
+        if (item.name.indexOf(value) > -1) {
+          flag = true
+          this.setData({
+            'discernResult.type': item.type
+          })
+          break
+        }
       }
-    }
+      if (!flag) {
+        this.setData({
+          'discernResult.type': '未识别'
+        })
+      }
+    }, 600)
   },
   onLoad: function () {
     this.getBaiduAccessToken()
@@ -175,7 +185,8 @@ discern (base64Image) {
       detailVisible: false,
       detailImg: '',
       searchValue: '',
-      toastVisible: false
+      toastVisible: false,
+      inputValue: ''
     })
   }
 })

@@ -3,7 +3,7 @@
   <view class="search-box flex jc-c ai-c" hover-class="none" hover-stop-propagation="false">
     <image class="search-icon" src="../../images/search.png" mode="widthFix" lazy-load="false" binderror="" bindload="">
     </image>
-    <input placeholder="搜索垃圾分类" bindinput="searchInput"  bindconfirm="doSearch" confirm-type="搜索"/>
+    <input placeholder="搜索垃圾分类" bindinput="searchInput"  bindconfirm="doSearch" value="{{ inputValue }}" confirm-type="搜索"/>
     <image class="camera" bindtap="getImage" src="../../images/cam.png" mode="widthFix" lazy-load="false" binderror="" bindload="">
     </image>
     <view class="search-btn c-blue ft16" bindtap="doSearch" hover-class="none" hover-stop-propagation="false">
@@ -29,12 +29,12 @@
       </view>
     </view>
   </view>
-  <!-- <view class="type c-333 flex jc-s ai-c" wx:if="{{discernResult.type}}" hover-class="none" hover-stop-propagation="false">
+  <view class="type c-333 flex jc-s ai-c" wx:if="{{discernResult.type}}" hover-class="none" hover-stop-propagation="false">
     <view class="" selectable="false" space="false" decode="false" style="min-width:110px">
       识别结果：
     </view>
     <view class="c-blue ft20">{{ discernResult.type }}</view>
-  </view> -->
+  </view>
   <view class="classify-box flex jc-sa" style="margin-top: 80rpx;" hover-class="none" hover-stop-propagation="false">
     <image class="" src="../../images/ico-1.jpg" data-url="../../images/11.png" bindtap="showDetail" mode="widthFix" lazy-load="false" binderror="" bindload=""> 
     </image>
@@ -47,12 +47,12 @@
     <image class="" src="../../images/ico-4.jpg" data-url="../../images/44.png" bindtap="showDetail" mode="widthFix" lazy-load="false" binderror="" bindload=""> 
     </image>
   </view>
-  <view class="contact-me" hover-class="none" hover-stop-propagation="false">
-    <button class="contact-btn" open-type="contact">联系我</button>
+  <view class="contact-me flex ai-c jc-c" hover-class="none" hover-stop-propagation="false">
     <view class="contact-mask flex jc-c ai-c" hover-class="none" hover-stop-propagation="false">
-      <van-icon name="chat-o" color="#1296db" class="flex ai-c" style="display:block"/>
+      <van-icon name="chat-o" color="#1296db" class="flex ai-c icon" style="display:block"/>
       留言
     </view>
+    <button class="contact-btn" open-type="contact">留言</button>
   </view>
   <van-dialog
     use-slot
