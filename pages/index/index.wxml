@@ -14,13 +14,14 @@
     <image id="img" class="" src="{{currentImage}}" lazy-load="false" binderror="" bindload="" mode="widthFix" style="width: 100%;height: 100%">
     </image>
   </view>
-  <view wx:if="{{ discernResult.list.length }}" class="result-title ft14 c-333" hover-class="none" hover-stop-propagation="false">
+  <view wx:if="{{ discernResult.list.length }}" class="result-title ft14 c-333 flex ai-c" hover-class="none" hover-stop-propagation="false">
     可能的结果
+    <text class="title-tip flex ai-c jc-c" selectable="false" space="false" decode="false">(未识别的结果会尽快收录)</text>
   </view>
   <view class="discern-result flex jc-s ai-c" hover-class="none" hover-stop-propagation="false">
     <view class="list flex f-w jc-s ai-c text-center" wx:if="{{ discernResult.list.length }}" style="width: 100%" hover-class="none" hover-stop-propagation="false">
-      <view class="keyword ft20 c-333 flex" style="width: 50%" wx:for="{{ discernResult.list }}" wx:for-item="item" wx:key="{{ item.keyword }}">
-        <view class="" selectable="false" space="false" decode="false">
+      <view class="keyword ft20 c-333 flex text-left" wx:for="{{ discernResult.list }}" wx:for-item="item" wx:key="{{ item.keyword }}">
+        <view class="text-left" selectable="false" space="false" decode="false">
           {{ item.keyword }}:
         </view>
         <view class="ft20 c-blue" style="margin-left: 10px;" selectable="false" space="false" decode="false">
@@ -60,7 +61,7 @@
     showConfirmButton="{{ false }}"
     close-on-click-overlay
   >
-    <image src="{{detailImg}}" class="classify-detail" mode="widthFix"/>
+    <image src="{{detailImg}}" class="classify-detail" bindtap="closePicDialog" mode="widthFix"/>
   </van-dialog>
   <van-toast id="van-toast" wx:if="{{toastVisible}}"/>
   <!-- <view class="" hover-class="none" hover-stop-propagation="false" style="width: 400rpx; height: 200rpx;text-align: center;overfolw: hidden">

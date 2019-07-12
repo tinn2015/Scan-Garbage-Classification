@@ -1,5 +1,6 @@
 //获取应用实例
 const app = getApp()
+console.log(app, 'app')
 import trashClasses from '../../utils/trashClass'
 import util from '../../utils/util'
 import Toast from '../../components/vant/toast/toast'
@@ -16,7 +17,8 @@ Page({
     detailImg: '',
     searchValue: '',
     toastVisible: false,
-    inputValue: ''
+    inputValue: '',
+    trashes: null
   },
   //事件处理函数
   bindViewTap: function() {
@@ -98,6 +100,11 @@ discern (base64Image) {
       }
     })
   },
+  closePicDialog () {
+    this.setData({
+      detailVisible: false
+    })
+  },
   getType (key) {
     let type = '未识别'
     trashClasses.forEach(i => {
@@ -105,6 +112,9 @@ discern (base64Image) {
         type = i.type
       }
     })
+    if (type === '未识别') {
+      this.setToDB(key)
+    }
     return type
   },
   filterResult (key) {
@@ -169,11 +179,30 @@ discern (base64Image) {
         this.setData({
           'discernResult.type': '未识别'
         })
+        this.setToDB(value)
       }
     }, 600)
   },
+  setToDB (key) {
+    let db = app.globalData.db
+    let trashes = db.collection('trashes')
+    trashes.add({
+      data: {
+        due: new Date(),
+        key: key
+      }
+    })
+  },
+  getCollection () {
+    let db = app.globalData.db
+    let trashes = db.collection('trashes')
+    this.setData({
+      trashes: trashes
+    })
+  },
   onLoad: function () {
     this.getBaiduAccessToken()
+    this.getCollection()
   },
   onShow: function () {
     this.setData({

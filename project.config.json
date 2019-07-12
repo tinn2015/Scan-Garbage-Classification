@@ -10,6 +10,7 @@
 		"autoAudits": false,
 		"checkInvalidKey": true
 	},
+	"cloudfunctionRoot": "./cloudfunctions/",
 	"compileType": "miniprogram",
 	"libVersion": "2.7.4",
 	"appid": "wx10c59276b3807e50",

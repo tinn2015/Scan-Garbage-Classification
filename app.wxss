@@ -41,6 +41,9 @@ page {
 .text-center {
   text-align: center
 }
+.text-left {
+  text-align: left
+}
 .ft20 {
   font-size: 20px;
 }
