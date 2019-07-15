@@ -10420,6 +10420,14 @@ const trashClasses = [
       "name": "桌布",
       "type": "可回收",
       "count": "313"
-  }
+  },
+  {
+        "name": "手机膜",
+        "type": "干垃圾",
+    },
+    {
+        "name": '手机壳',
+        "type": '干垃圾'
+    }
 ]
 export default trashClasses
